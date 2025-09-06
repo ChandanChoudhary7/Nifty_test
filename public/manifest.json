@@ -1,0 +1,9 @@
+{
+  "name": "Nifty Investment Tracker",
+  "short_name": "NiftyTracker",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#1F2121",
+  "theme_color": "#1F2121",
+  "icons": []
+}
