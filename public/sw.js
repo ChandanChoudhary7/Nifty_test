@@ -1,27 +1,58 @@
-const STATIC_CACHE = 'nifty-static-v1';
-const ASSETS = ['/', '/index.html', '/style.css', '/app.js', '/manifest.json'];
+const CACHE_NAME = 'nifty-tracker-v1';
+const STATIC_ASSETS = [
+  '/',
+  '/manifest.json'
+];
 
-self.addEventListener('install', (e) => {
-  e.waitUntil(caches.open(STATIC_CACHE).then((c) => c.addAll(ASSETS)));
-});
-self.addEventListener('activate', (e) => {
-  e.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== STATIC_CACHE).map((k) => caches.delete(k)))
-    )
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(STATIC_ASSETS);
+    })
   );
+  self.skipWaiting();
 });
-self.addEventListener('fetch', (e) => {
-  const { request } = e;
-  if (request.method !== 'GET') return;
-  // network-first for API, cache-first for static
-  if (request.url.includes('/api/')) {
-    e.respondWith(
-      fetch(request).catch(() => caches.match(request))
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames
+          .filter((cacheName) => cacheName !== CACHE_NAME)
+          .map((cacheName) => caches.delete(cacheName))
+      );
+    })
+  );
+  self.clients.claim();
+});
+
+self.addEventListener('fetch', (event) => {
+  if (event.request.method !== 'GET') return;
+
+  // Network first for API routes
+  if (event.request.url.includes('/api/')) {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          if (response.ok) {
+            const responseToCache = response.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, responseToCache);
+            });
+          }
+          return response;
+        })
+        .catch(() => {
+          return caches.match(event.request);
+        })
     );
-  } else {
-    e.respondWith(
-      caches.match(request).then((c) => c || fetch(request))
-    );
+    return;
   }
+
+  // Cache first for static assets
+  event.respondWith(
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request);
+    })
+  );
 });
