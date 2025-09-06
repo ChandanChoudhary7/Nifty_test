@@ -1,0 +1,30 @@
+:root {
+  --bg-primary:#1F2121; --bg-secondary:#2A2D2D; --text:#fff; --muted:#A7A9A9;
+  --green:#22C55E; --red:#EF4444; --yellow:#F59E0B;
+}
+*{box-sizing:border-box} body{margin:0;background:var(--bg-primary);color:var(--text);
+font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif}
+.container{min-height:100vh;display:flex;flex-direction:column}
+.header{position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;
+background:var(--bg-secondary);padding:1rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.header h1{margin:0;font-size:1.3rem}
+.header-actions{display:flex;gap:.5rem;align-items:center}
+.status-indicator{font-weight:600;font-size:.8rem;color:var(--green)}
+.btn{border:0;border-radius:.5rem;padding:.5rem .75rem;background:var(--green);color:#000;font-weight:700;cursor:pointer}
+.main{flex:1;padding:1rem;max-width:1100px;margin:0 auto}
+.section{margin-bottom:1.5rem}
+.section-title{font-weight:800;margin:.25rem 0 1rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.card{background:var(--bg-secondary);padding:1rem;border-radius:.75rem;border:1px solid rgba(255,255,255,.06)}
+.card-label{color:var(--muted);font-size:.85rem;text-transform:uppercase}
+.card-value{font-size:1.6rem;font-weight:800;margin-top:.35rem}
+.card-meta{margin-top:.25rem;color:var(--muted);font-size:.8rem}
+.positive{color:var(--green)} .negative{color:var(--red)} .neutral{color:var(--yellow)}
+.signal-card{padding:1.25rem;border-radius:.75rem;border:2px solid rgba(255,255,255,.08);background:var(--bg-secondary);text-align:center}
+.signal-card.buy{border-color:var(--green);box-shadow:0 0 0 3px rgba(34,197,94,.15) inset}
+.signal-card.wait{border-color:var(--yellow)}
+.signal-card.avoid{border-color:var(--red)}
+.signal-status{font-size:2rem;font-weight:900}
+.signal-description{color:var(--muted);margin-top:.25rem}
+.loading-indicator{margin:1rem 0;color:var(--muted)} .hidden{display:none}
+.footer{padding:1rem;color:var(--muted);text-align:center;border-top:1px solid rgba(255,255,255,.08)}
