@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nifty Investment Tracker</title>
+  <meta name="theme-color" content="#1F2121" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Nifty Investment Tracker</h1>
+      <div class="header-actions">
+        <div id="connectionStatus" class="status-indicator">Online</div>
+        <button id="refreshBtn" class="btn btn-refresh">↻ Refresh</button>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="section">
+        <h2 class="section-title">Market Data</h2>
+        <div class="cards">
+          <div class="card"><div class="card-label">Current Price</div><div id="price" class="card-value">--</div></div>
+          <div class="card"><div class="card-label">Previous Close</div><div id="prevClose" class="card-value">--</div></div>
+          <div class="card"><div class="card-label">Open</div><div id="open" class="card-value">--</div></div>
+          <div class="card"><div class="card-label">52W High</div><div id="hi52" class="card-value">--</div></div>
+          <div class="card"><div class="card-label">52W Low</div><div id="lo52" class="card-value">--</div></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">Averages & EMA</h2>
+        <div class="cards">
+          <div class="card"><div class="card-label">50 Day Avg (Yahoo)</div><div id="dma50" class="card-value">--</div></div>
+          <div class="card"><div class="card-label">200 Day Avg (Yahoo)</div><div id="dma200" class="card-value">--</div></div>
+          <div class="card"><div class="card-label">EMA 20 (API)</div><div id="ema20" class="card-value">--</div></div>
+          <div class="card"><div class="card-label">EMA 50 (API)</div><div id="ema50" class="card-value">--</div></div>
+          <div class="card">
+            <div class="card-label">EMA Crossover</div>
+            <div id="emaTrend" class="card-value">--</div>
+            <div class="card-meta" id="emaNote">Fetched from provider APIs</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">Signals</h2>
+        <div id="signal" class="signal-card wait">
+          <div class="signal-status">WAIT</div>
+          <div class="signal-description">Waiting for EMA momentum and valuation alignment</div>
+        </div>
+      </section>
+
+      <div id="loading" class="loading-indicator hidden">Loading…</div>
+    </main>
+
+    <footer class="footer">
+      <div id="lastUpdated" class="last-updated">Last updated: --</div>
+      <div class="disclaimer">This tool is for education only, not investment advice.</div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
