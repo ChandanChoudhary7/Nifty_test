@@ -1,538 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nifty Investment Tracker</title>
-  <meta name="theme-color" content="#1F2121">
-  <link rel="manifest" href="manifest.json">
-  <style>
-    :root {
-      --bg-primary: #1F2121;
-      --bg-secondary: #2A2D2D;
-      --text: #fff;
-      --muted: #A7A9A9;
-      --green: #22C55E;
-      --red: #EF4444;
-      --yellow: #F59E0B;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nifty 50 Investment Tracker</title>
+    <meta name="description" content="Modern PWA for tracking Nifty 50 investments with technical analysis">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#0F172A">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Nifty 50 Tracker">
     
-    body {
-      background: var(--bg-primary);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-      line-height: 1.6;
-    }
-    
-    .container {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--bg-secondary);
-      padding: 1rem;
-      border-bottom: 1px solid rgba(255,255,255,.1);
-    }
-    
-    .header h1 {
-      font-size: 1.5rem;
-      font-weight: 700;
-    }
-    
-    .header-actions {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-    }
-    
-    .status-indicator {
-      font-weight: 600;
-      font-size: 0.8rem;
-      color: var(--green);
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-      background: rgba(34, 197, 94, 0.1);
-    }
-    
-    .btn {
-      border: 0;
-      border-radius: 0.5rem;
-      padding: 0.5rem 0.75rem;
-      background: var(--green);
-      color: #000;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    
-    .btn:hover {
-      background: #16A34A;
-      transform: translateY(-1px);
-    }
-    
-    .main {
-      flex: 1;
-      padding: 1rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      width: 100%;
-    }
-    
-    .section {
-      margin-bottom: 2rem;
-    }
-    
-    .section-title {
-      font-weight: 800;
-      margin: 0.5rem 0 1rem;
-      font-size: 1.25rem;
-    }
-    
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
-    }
-    
-    .card {
-      background: var(--bg-secondary);
-      padding: 1.5rem;
-      border-radius: 0.75rem;
-      border: 1px solid rgba(255,255,255,.06);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    
-    .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(0,0,0,.3);
-    }
-    
-    .card-label {
-      color: var(--muted);
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 0.5rem;
-    }
-    
-    .card-value {
-      font-size: 1.8rem;
-      font-weight: 800;
-      margin-top: 0.5rem;
-    }
-    
-    .card-meta {
-      margin-top: 0.5rem;
-      color: var(--muted);
-      font-size: 0.8rem;
-    }
-    
-    .positive { color: var(--green); }
-    .negative { color: var(--red); }
-    .neutral { color: var(--yellow); }
-    
-    .signal-card {
-      padding: 2rem;
-      border-radius: 0.75rem;
-      border: 2px solid rgba(255,255,255,.1);
-      background: var(--bg-secondary);
-      text-align: center;
-    }
-    
-    .signal-card.buy {
-      border-color: var(--green);
-      background: linear-gradient(135deg, rgba(34,197,94,.1), rgba(34,197,94,.05));
-    }
-    
-    .signal-card.wait {
-      border-color: var(--yellow);
-      background: linear-gradient(135deg, rgba(245,158,11,.1), rgba(245,158,11,.05));
-    }
-    
-    .signal-card.avoid {
-      border-color: var(--red);
-      background: linear-gradient(135deg, rgba(239,68,68,.1), rgba(239,68,68,.05));
-    }
-    
-    .signal-status {
-      font-size: 2.5rem;
-      font-weight: 900;
-      margin-bottom: 0.5rem;
-    }
-    
-    .signal-description {
-      color: var(--muted);
-      font-size: 1rem;
-    }
-    
-    .loading-indicator {
-      margin: 1rem 0;
-      color: var(--muted);
-      text-align: center;
-      padding: 1rem;
-    }
-    
-    .hidden { display: none; }
-    
-    .footer {
-      padding: 1rem;
-      color: var(--muted);
-      text-align: center;
-      border-top: 1px solid rgba(255,255,255,.1);
-      font-size: 0.9rem;
-    }
-    
-    .disclaimer {
-      margin-top: 0.5rem;
-      font-size: 0.8rem;
-      opacity: 0.7;
-    }
-    
-    @media (max-width: 768px) {
-      .cards {
-        grid-template-columns: 1fr;
-      }
-      
-      .header h1 {
-        font-size: 1.25rem;
-      }
-      
-      .card-value {
-        font-size: 1.5rem;
-      }
-      
-      .signal-status {
-        font-size: 2rem;
-      }
-    }
-  </style>
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiTmlmdHkgNTAgVHJhY2tlciIsInNob3J0X25hbWUiOiJOaWZ0eSIsInN0YXJ0X3VybCI6Ii8iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjMEYxNzJBIiwidGhlbWVfY29sb3IiOiIjMEYxNzJBIn0=">
 </head>
 <body>
-  <div class="container">
-    <header class="header">
-      <h1>Nifty Investment Tracker</h1>
-      <div class="header-actions">
-        <div id="connectionStatus" class="status-indicator">Online</div>
-        <button id="refreshBtn" class="btn">↻ Refresh</button>
-      </div>
-    </header>
-
-    <main class="main">
-      <section class="section">
-        <h2 class="section-title">📊 Market Data</h2>
-        <div class="cards">
-          <div class="card">
-            <div class="card-label">Current Price</div>
-            <div id="price" class="card-value">--</div>
-          </div>
-          <div class="card">
-            <div class="card-label">Previous Close</div>
-            <div id="prevClose" class="card-value">--</div>
-          </div>
-          <div class="card">
-            <div class="card-label">Open</div>
-            <div id="open" class="card-value">--</div>
-          </div>
-          <div class="card">
-            <div class="card-label">52W High</div>
-            <div id="hi52" class="card-value">--</div>
-          </div>
-          <div class="card">
-            <div class="card-label">52W Low</div>
-            <div id="lo52" class="card-value">--</div>
-          </div>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h2>Nifty 50 Tracker</h2>
+            <p>Loading market data...</p>
         </div>
-      </section>
+    </div>
 
-      <section class="section">
-        <h2 class="section-title">📈 Technical Indicators</h2>
-        <div class="cards">
-          <div class="card">
-            <div class="card-label">50 Day Average</div>
-            <div id="dma50" class="card-value">--</div>
-            <div class="card-meta">From Yahoo Finance</div>
-          </div>
-          <div class="card">
-            <div class="card-label">200 Day Average</div>
-            <div id="dma200" class="card-value">--</div>
-            <div class="card-meta">From Yahoo Finance</div>
-          </div>
-          <div class="card">
-            <div class="card-label">EMA 20</div>
-            <div id="ema20" class="card-value">--</div>
-            <div class="card-meta" id="ema20Source">API Source</div>
-          </div>
-          <div class="card">
-            <div class="card-label">EMA 50</div>
-            <div id="ema50" class="card-value">--</div>
-            <div class="card-meta" id="ema50Source">API Source</div>
-          </div>
-          <div class="card">
-            <div class="card-label">EMA Crossover</div>
-            <div id="emaTrend" class="card-value">--</div>
-            <div class="card-meta">20 vs 50 EMA Comparison</div>
-          </div>
-        </div>
-      </section>
+    <!-- Main App -->
+    <div id="app" class="app hidden">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="logo">
+                        <span class="logo-icon">📈</span>
+                        <h1>Nifty 50 Tracker</h1>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="connection-status">
+                        <div id="connection-dot" class="connection-dot connected"></div>
+                        <span id="connection-text">Connected</span>
+                    </div>
+                    <button id="refresh-btn" class="btn btn--primary refresh-btn">
+                        <span class="refresh-icon">🔄</span>
+                        <span class="refresh-text">Refresh</span>
+                    </button>
+                </div>
+            </div>
+        </header>
 
-      <section class="section">
-        <h2 class="section-title">🎯 Investment Signal</h2>
-        <div id="signal" class="signal-card wait">
-          <div class="signal-status">LOADING</div>
-          <div class="signal-description">Analyzing market conditions...</div>
-        </div>
-      </section>
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                <!-- Market Overview Section -->
+                <section class="section market-overview">
+                    <div class="section-header">
+                        <span class="section-icon">📊</span>
+                        <h2>Market Overview</h2>
+                    </div>
+                    
+                    <div class="cards-grid">
+                        <!-- Current Price Card -->
+                        <div class="card price-card">
+                            <div class="card__body">
+                                <div class="price-header">
+                                    <span class="price-label">NIFTY 50</span>
+                                    <span id="trend-indicator" class="trend-indicator"></span>
+                                </div>
+                                <div class="price-value">
+                                    <span class="currency">₹</span>
+                                    <span id="current-price">24,741.00</span>
+                                </div>
+                                <div class="price-change">
+                                    <span id="price-change" class="change-value">+6.70</span>
+                                    <span id="price-change-percent" class="change-percent">(+0.027%)</span>
+                                </div>
+                            </div>
+                        </div>
 
-      <div id="loading" class="loading-indicator hidden">Loading market data...</div>
-    </main>
+                        <!-- Market Data Cards -->
+                        <div class="card data-card">
+                            <div class="card__body">
+                                <div class="data-item">
+                                    <span class="data-label">Previous Close</span>
+                                    <span id="prev-close" class="data-value">₹24,734.30</span>
+                                </div>
+                                <div class="data-item">
+                                    <span class="data-label">Open</span>
+                                    <span id="open-price" class="data-value">₹24,818.85</span>
+                                </div>
+                            </div>
+                        </div>
 
-    <footer class="footer">
+                        <div class="card data-card">
+                            <div class="card__body">
+                                <div class="data-item">
+                                    <span class="data-label">52W High</span>
+                                    <span id="high-52w" class="data-value">₹26,277.35</span>
+                                </div>
+                                <div class="data-item">
+                                    <span class="data-label">52W Low</span>
+                                    <span id="low-52w" class="data-value">₹21,743.65</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Technical Analysis Section -->
+                <section class="section technical-analysis">
+                    <div class="section-header">
+                        <span class="section-icon">📈</span>
+                        <h2>Technical Analysis</h2>
+                    </div>
+                    
+                    <div class="cards-grid">
+                        <div class="card analysis-card">
+                            <div class="card__body">
+                                <h3>Moving Averages</h3>
+                                <div class="data-item">
+                                    <span class="data-label">50 DMA</span>
+                                    <span id="dma-50" class="data-value">₹24,734.31</span>
+                                </div>
+                                <div class="data-item">
+                                    <span class="data-label">200 DMA</span>
+                                    <span id="dma-200" class="data-value">₹24,788.64</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card analysis-card">
+                            <div class="card__body">
+                                <h3>Exponential Moving Averages</h3>
+                                <div class="data-item">
+                                    <span class="data-label">EMA 20</span>
+                                    <span id="ema-20" class="data-value">₹24,734.31</span>
+                                </div>
+                                <div class="data-item">
+                                    <span class="data-label">EMA 50</span>
+                                    <span id="ema-50" class="data-value">₹24,788.64</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card crossover-card">
+                            <div class="card__body">
+                                <h3>EMA Crossover Analysis</h3>
+                                <div class="crossover-status">
+                                    <span id="crossover-icon" class="crossover-icon">📉</span>
+                                    <div class="crossover-text">
+                                        <span id="crossover-status" class="crossover-label">BEARISH</span>
+                                        <span class="crossover-desc">20 EMA below 50 EMA</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Investment Signal Section -->
+                <section class="section investment-signal">
+                    <div class="section-header">
+                        <span class="section-icon">🎯</span>
+                        <h2>Investment Signal</h2>
+                    </div>
+                    
+                    <div class="signal-card">
+                        <div class="signal-header">
+                            <span id="signal-icon" class="signal-icon">⚠️</span>
+                            <span id="signal-text" class="signal-text">AVOID</span>
+                        </div>
+                        <div class="signal-description">
+                            <p id="signal-description">Current technical indicators suggest a bearish trend. The 20 EMA is below the 50 EMA, indicating downward momentum. Consider waiting for better entry points.</p>
+                        </div>
+                        <div class="signal-details">
+                            <div class="signal-detail">
+                                <span class="detail-label">Trend</span>
+                                <span id="trend-status" class="detail-value bearish">BEARISH</span>
+                            </div>
+                            <div class="signal-detail">
+                                <span class="detail-label">Momentum</span>
+                                <span id="momentum-status" class="detail-value bearish">NEGATIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
       <div id="lastUpdated">Last updated: --</div>
       <div class="disclaimer">
         ⚠️ This tool is for educational purposes only. Not financial advice.
         😎 Created by Chandan Choudhary
       </div>
     </footer>
-  </div>
+    </div>
 
-  <script>
-const $ = (id) => document.getElementById(id);
-const state = {};
-
-function fmt(n) {
-  if (n == null || isNaN(n)) return '--';
-  return '₹' + n.toLocaleString('en-IN', { maximumFractionDigits: 2 });
-}
-
-async function getJSON(url) {
-  try {
-    console.log('Fetching:', url);
-    const response = await fetch(url, { 
-      cache: 'no-cache',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    });
-    
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    }
-    
-    const data = await response.json();
-    console.log('Response from', url, ':', data);
-    return data;
-  } catch (error) {
-    console.error('Fetch error for', url, ':', error);
-    throw error;
-  }
-}
-
-async function loadQuote() {
-  try {
-    console.log('Loading quote data...');
-    const data = await getJSON('/api/quote');
-    state.price = data.regularMarketPrice;
-    state.prevClose = data.previousClose;
-    state.open = data.regularMarketOpen;
-    state.hi52 = data.fiftyTwoWeekHigh;
-    state.lo52 = data.fiftyTwoWeekLow;
-    state.quoteSource = data.source;
-    console.log('Quote loaded:', state);
-  } catch (error) {
-    console.error('Quote load error:', error);
-    // Set fallback values
-    state.price = 24741.00;
-    state.prevClose = 24734.30;
-    state.open = 24818.85;
-    state.hi52 = 26277.35;
-    state.lo52 = 21743.65;
-    state.quoteSource = 'fallback';
-  }
-}
-
-async function loadAverages() {
-  try {
-    console.log('Loading averages data...');
-    const data = await getJSON('/api/averages');
-    state.dma50 = data.fiftyDayAverage;
-    state.dma200 = data.twoHundredDayAverage;
-    state.avgSource = data.source;
-    console.log('Averages loaded:', state);
-  } catch (error) {
-    console.error('Averages load error:', error);
-    // Set fallback values
-    state.dma50 = 24734.31;
-    state.dma200 = 24788.64;
-    state.avgSource = 'fallback';
-  }
-}
-
-async function loadEMAs() {
-  try {
-    console.log('Loading EMA data...');
-    const [e20, e50] = await Promise.all([
-      getJSON('/api/ema?period=20'),
-      getJSON('/api/ema?period=50')
-    ]);
-    
-    state.ema20 = e20.ema;
-    state.ema50 = e50.ema;
-    state.ema20Source = e20.source;
-    state.ema50Source = e50.source;
-    
-    if (state.ema20 != null && state.ema50 != null) {
-      state.emaTrend = state.ema20 > state.ema50 ? 'BULLISH' : 'BEARISH';
-    } else {
-      state.emaTrend = 'N/A';
-    }
-    console.log('EMA loaded:', { ema20: state.ema20, ema50: state.ema50, trend: state.emaTrend });
-  } catch (error) {
-    console.error('EMA load error:', error);
-    // Set fallback values
-    state.ema20 = 24734.31;
-    state.ema50 = 24788.64;
-    state.ema20Source = 'fallback';
-    state.ema50Source = 'fallback';
-    state.emaTrend = 'BEARISH';
-  }
-}
-
-function render() {
-  console.log('Rendering with state:', state);
-  
-  // Market data
-  $('price').textContent = fmt(state.price);
-  $('prevClose').textContent = fmt(state.prevClose);
-  $('open').textContent = fmt(state.open);
-  $('hi52').textContent = fmt(state.hi52);
-  $('lo52').textContent = fmt(state.lo52);
-
-  // Technical indicators
-  $('dma50').textContent = fmt(state.dma50);
-  $('dma200').textContent = fmt(state.dma200);
-  $('ema20').textContent = state.ema20 ? fmt(state.ema20) : 'N/A';
-  $('ema50').textContent = state.ema50 ? fmt(state.ema50) : 'N/A';
-  
-  // EMA sources
-  if (state.ema20Source) {
-    $('ema20Source').textContent = `Source: ${state.ema20Source}`;
-  }
-  if (state.ema50Source) {
-    $('ema50Source').textContent = `Source: ${state.ema50Source}`;
-  }
-
-  // EMA trend
-  const trendEl = $('emaTrend');
-  trendEl.textContent = state.emaTrend;
-  trendEl.className = 'card-value ' + (
-    state.emaTrend === 'BULLISH' ? 'positive' :
-    state.emaTrend === 'BEARISH' ? 'negative' : 
-    'neutral'
-  );
-
-  // Investment signal
-  const signal = $('signal');
-  const statusEl = signal.querySelector('.signal-status');
-  const descEl = signal.querySelector('.signal-description');
-
-  if (state.ema20 != null && state.ema50 != null) {
-    const isBullish = state.ema20 > state.ema50;
-    signal.className = 'signal-card ' + (isBullish ? 'buy' : 'avoid');
-    statusEl.textContent = isBullish ? 'BUY' : 'AVOID';
-    descEl.textContent = isBullish ? 
-      `EMA momentum is bullish (20 EMA ₹${state.ema20.toFixed(2)} > 50 EMA ₹${state.ema50.toFixed(2)})` : 
-      `EMA momentum is bearish (20 EMA ₹${state.ema20.toFixed(2)} < 50 EMA ₹${state.ema50.toFixed(2)})`;
-  } else {
-    signal.className = 'signal-card wait';
-    statusEl.textContent = 'WAIT';
-    descEl.textContent = 'Waiting for EMA data from providers';
-  }
-
-  $('lastUpdated').textContent = 'Last updated: ' + 
-    new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) + ' IST';
-}
-
-async function bootstrap() {
-  console.log('Bootstrap started...');
-  const refreshBtn = $('refreshBtn');
-  const loadingEl = $('loading');
-  
-  try {
-    // Disable refresh button and show loading
-    refreshBtn.disabled = true;
-    refreshBtn.textContent = 'Loading...';
-    loadingEl.classList.remove('hidden');
-    
-    console.log('Loading all data...');
-    await Promise.all([
-      loadQuote(),
-      loadAverages(),
-      loadEMAs()
-    ]);
-    
-    console.log('All data loaded, rendering...');
-    render();
-    console.log('Bootstrap completed successfully');
-    
-  } catch (error) {
-    console.error('Bootstrap error:', error);
-    // Still try to render with whatever data we have
-    render();
-    alert('Some data could not be loaded. Using fallback values.');
-  } finally {
-    // Re-enable refresh button and hide loading
-    refreshBtn.disabled = false;
-    refreshBtn.textContent = '↻ Refresh';
-    loadingEl.classList.add('hidden');
-  }
-}
-
-// Initialize app
-window.addEventListener('load', () => {
-  console.log('App loading...');
-  
-  // Set up refresh button
-  const refreshBtn = $('refreshBtn');
-  refreshBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    console.log('Refresh button clicked');
-    bootstrap();
-  });
-  
-  // Connection status
-  function updateConnectionStatus() {
-    const status = navigator.onLine ? 'Online' : 'Offline';
-    $('connectionStatus').textContent = status;
-    console.log('Connection status:', status);
-  }
-  
-  updateConnectionStatus();
-  window.addEventListener('online', updateConnectionStatus);
-  window.addEventListener('offline', updateConnectionStatus);
-  
-  // Start the app
-  console.log('Starting bootstrap...');
-  bootstrap();
-});
-
-// Service Worker
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js')
-    .then(reg => console.log('Service Worker registered'))
-    .catch(err => console.log('Service Worker registration failed:', err));
-}
-</script>
-
+    <script src="app.js"></script>
 </body>
 </html>
