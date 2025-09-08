@@ -248,26 +248,28 @@
         // Nifty 50 Investment Tracker - Dynamic Data Fetching
         class NiftyTracker {
             constructor() {
-                this.data = {
-                    current_price: null,
-                    previous_close: null,
-                    open: null,
-                    high_52w: null,
-                    low_52w: null,
-                    dma_50: null,
-                    dma_200: null,
-                    ema_20: null,
-                    ema_50: null,
-                    pe_ratio: null,
-                    rsi: null,
-                    last_updated: null
-                };
-                
-                this.isLoading = false;
-                this.isConnected = navigator.onLine;
-                
-                this.init();
-            }
+    this.data = {
+        current_price: null,
+        previous_close: null,
+        open: null,
+        high_52w: null,
+        low_52w: null,
+        all_time_high: 26277.35, // Nifty 50 ATH
+        dma_50: null,
+        dma_200: null,
+        ema_20: null,
+        ema_50: null,
+        pe_ratio: null,
+        rsi: null,
+        last_updated: null
+    };
+    
+    this.isLoading = false;
+    this.isConnected = navigator.onLine;
+    
+    this.init();
+}
+
             
             init() {
                 this.showLoadingScreen();
