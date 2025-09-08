@@ -57,57 +57,84 @@
         <main class="main-content">
             <div class="container">
                 <!-- Market Overview Section -->
-                <section class="section market-overview">
-                    <div class="section-header">
-                        <span class="section-icon">📊</span>
-                        <h2>Market Overview</h2>
-                    </div>
-                    
-                    <div class="cards-grid">
-                        <!-- Current Price Card -->
-                        <div class="card price-card">
-                            <div class="card__body">
-                                <div class="price-header">
-                                    <span class="price-label">NIFTY 50</span>
-                                    <span id="trend-indicator" class="trend-indicator"></span>
-                                </div>
-                                <div class="price-value">
-                                    <span class="currency">₹</span>
-                                    <span id="current-price">Loading...</span>
-                                </div>
-                                <div class="price-change">
-                                    <span id="price-change" class="change-value">--</span>
-                                    <span id="price-change-percent" class="change-percent">--</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Market Data Cards -->
-                        <div class="card data-card">
-                            <div class="card__body">
-                                <div class="data-item">
-                                    <span class="data-label">Previous Close</span>
-                                    <span id="prev-close" class="data-value">Loading...</span>
-                                </div>
-                                <div class="data-item">
-                                    <span class="data-label">Open</span>
-                                    <span id="open-price" class="data-value">Loading...</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card data-card">
-                            <div class="card__body">
-                                <div class="data-item">
-                                    <span class="data-label">52W High</span>
-                                    <span id="high-52w" class="data-value">Loading...</span>
-                                </div>
-                                <div class="data-item">
-                                    <span class="data-label">52W Low</span>
-                                    <span id="low-52w" class="data-value">Loading...</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+<section class="section market-overview">
+    <div class="section-header">
+        <span class="section-icon">📊</span>
+        <h2>Market Overview</h2>
+    </div>
+    
+    <div class="cards-grid">
+        <!-- Current Price Card -->
+        <div class="card price-card">
+            <div class="card__body">
+                <div class="price-header">
+                    <span class="price-label">NIFTY 50</span>
+                    <span id="trend-indicator" class="trend-indicator"></span>
+                </div>
+                <div class="price-value">
+                    <span class="currency">₹</span>
+                    <span id="current-price">Loading...</span>
+                </div>
+                <div class="price-change">
+                    <span id="price-change" class="change-value">--</span>
+                    <span id="price-change-percent" class="change-percent">--</span>
+                </div>
+            </div>
+        </div>
+        <!-- Market Data Cards -->
+        <div class="card data-card">
+            <div class="card__body">
+                <div class="data-item">
+                    <span class="data-label">Previous Close</span>
+                    <span id="prev-close" class="data-value">Loading...</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">Open</span>
+                    <span id="open-price" class="data-value">Loading...</span>
+                </div>
+            </div>
+        </div>
+        <div class="card data-card">
+            <div class="card__body">
+                <div class="data-item">
+                    <span class="data-label">52W High</span>
+                    <span id="high-52w" class="data-value">Loading...</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">52W Low</span>
+                    <span id="low-52w" class="data-value">Loading...</span>
+                </div>
+            </div>
+        </div>
+        <!-- All-Time High Analysis Card -->
+        <div class="card data-card">
+            <div class="card__body">
+                <div class="data-item">
+                    <span class="data-label">All-Time High</span>
+                    <span id="all-time-high" class="data-value">₹26,277.35</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">Correction from ATH</span>
+                    <span id="ath-correction" class="data-value">Loading...</span>
+                </div>
+            </div>
+        </div>
+        <!-- Upside Potential Card -->
+        <div class="card data-card">
+            <div class="card__body">
+                <div class="data-item">
+                    <span class="data-label">Upside to ATH</span>
+                    <span id="ath-upside" class="data-value">Loading...</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">Status</span>
+                    <span id="ath-status" class="data-value">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
                 
                 <!-- Technical Analysis Section -->
                 <section class="section technical-analysis">
