@@ -1,5 +1,4 @@
 // api/nifty_pe.js
-
 import chromium from '@sparticuz/chromium';
 import puppeteer from 'puppeteer-core';
 
@@ -15,32 +14,28 @@ export default async function handler(req, res) {
     });
 
     const page = await browser.newPage();
-
     await page.setUserAgent(
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122 Safari/537.36'
     );
-
     await page.setExtraHTTPHeaders({ 'accept-language': 'en-GB,en;q=0.9' });
 
-    // Visit homepage to set cookies
+    // Hit home first so NSE sets cookies
     await page.goto('https://www.nseindia.com/', { waitUntil: 'networkidle2', timeout: 60000 });
 
+    // Indices data page (structure may change over time)
     await page.goto('https://www.nseindia.com/market-data/indices-data', { waitUntil: 'networkidle2', timeout: 60000 });
 
+    // Wait for any table to render
     await page.waitForSelector('table', { timeout: 45000 });
 
     const pe = await page.evaluate(() => {
       const tables = Array.from(document.querySelectorAll('table'));
-
       for (const table of tables) {
         const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.innerText.trim().toUpperCase());
-
         let peIndex = headers.findIndex(h => h.includes('P/E') || h === 'PE' || h.includes('P E'));
-
-        if (peIndex === -1) peIndex = 2;
+        if (peIndex === -1) peIndex = 2; // heuristic fallback
 
         const rows = Array.from(table.querySelectorAll('tbody tr'));
-
         for (const row of rows) {
           const cells = row.querySelectorAll('td');
           if (cells.length && /NIFTY\s*50/i.test(cells[0].innerText)) {
@@ -66,7 +61,6 @@ export default async function handler(req, res) {
     }
 
     return res.status(502).json({ error: 'PE not found on NSE page' });
-    
   } catch (err) {
     return res.status(500).json({ error: `Scraper failed: ${err.message}` });
   }
