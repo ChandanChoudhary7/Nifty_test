@@ -168,10 +168,12 @@
                                 <div class="data-item">
                                     <span class="data-label">PE Ratio</span>
                                     <span id="pe-ratio" class="data-value">Loading...</span>
+                                    <span id="pe-fallback-indicator" style="color:#EF4444; font-size:0.75em; margin-left:6px; display:none;">(Not real-time)</span>
                                 </div>
                                 <div class="data-item">
                                     <span class="data-label">RSI (14)</span>
                                     <span id="rsi-value" class="data-value">Loading...</span>
+                                    <span id="rsi-fallback-indicator" style="color:#EF4444; font-size:0.75em; margin-left:6px; display:none;">(Not real-time)</span>
                                 </div>
                             </div>
                         </div>
@@ -189,6 +191,7 @@
                         </div>
                     </div>
                 </section>
+                
                 <!-- Investment Signal Section -->
                 <section class="section investment-signal">
                     <div class="section-header">
@@ -218,6 +221,7 @@
                 </section>
             </div>
         </main>
+        
         <!-- Footer -->
         <footer class="footer">
             <div class="footer-content">
@@ -282,14 +286,17 @@ class NiftyTracker {
             this.isConnected = false; this.updateConnectionStatus();
         });
     }
+    
     showLoadingScreen() {
         document.getElementById('loading-screen').style.display = 'flex';
         document.getElementById('app').classList.add('hidden');
     }
+    
     hideLoadingScreen() {
         document.getElementById('loading-screen').style.display = 'none';
         document.getElementById('app').classList.remove('hidden');
     }
+    
     updateConnectionStatus() {
         const dot = document.getElementById('connection-dot');
         const text = document.getElementById('connection-text');
@@ -303,6 +310,7 @@ class NiftyTracker {
             }
         }
     }
+    
     async loadAllData() {
         try {
             this.setLoadingState(true);
@@ -318,7 +326,9 @@ class NiftyTracker {
         } catch (error) {
             console.error('Error loading data:', error);
             this.updateAllUI();
-        } finally { this.setLoadingState(false); }
+        } finally { 
+            this.setLoadingState(false); 
+        }
     }
 
     async loadQuoteData() {
@@ -331,12 +341,9 @@ class NiftyTracker {
                 this.data.open = data.regularMarketOpen;
                 this.data.high_52w = data.fiftyTwoWeekHigh;
                 this.data.low_52w = data.fiftyTwoWeekLow;
-                // For ATH: use either highest close/open in history or 
-                // latest 52-week high or get actual ATH from /api/ath (if available)
                 this.data.all_time_high = Math.max(data.fiftyTwoWeekHigh || 0, data.allTimeHigh || 0);
             }
         } catch (error) {
-            // Fallback (Nifty ATH as of Sep 2025)
             this.data.current_price = 24775.51;
             this.data.previous_close = 24734.30;
             this.data.open = 24818.85;
@@ -366,8 +373,12 @@ class NiftyTracker {
                 fetch('/api/ema?period=20'),
                 fetch('/api/ema?period=50')
             ]);
-            if (ema20Response.ok) { this.data.ema_20 = (await ema20Response.json()).ema; }
-            if (ema50Response.ok) { this.data.ema_50 = (await ema50Response.json()).ema; }
+            if (ema20Response.ok) { 
+                this.data.ema_20 = (await ema20Response.json()).ema; 
+            }
+            if (ema50Response.ok) { 
+                this.data.ema_50 = (await ema50Response.json()).ema; 
+            }
         } catch (error) {
             this.data.ema_20 = 24724.75;
             this.data.ema_50 = 24783.85;
@@ -381,10 +392,29 @@ class NiftyTracker {
                 const data = await response.json();
                 this.data.pe_ratio = data.peRatio;
                 this.data.rsi = data.rsi;
+
+                // Show or hide PE fallback indicator
+                const peFallbackIndicator = document.getElementById('pe-fallback-indicator');
+                if (data.fallback && data.fallback.pe) {
+                    peFallbackIndicator.style.display = 'inline';
+                } else {
+                    peFallbackIndicator.style.display = 'none';
+                }
+
+                // Show or hide RSI fallback indicator
+                const rsiFallbackIndicator = document.getElementById('rsi-fallback-indicator');
+                if (data.fallback && data.fallback.rsi) {
+                    rsiFallbackIndicator.style.display = 'inline';
+                } else {
+                    rsiFallbackIndicator.style.display = 'none';
+                }
             }
         } catch (error) {
             this.data.pe_ratio = 21.73;
             this.data.rsi = 53.21;
+            // Show fallback indicators for catch errors
+            document.getElementById('pe-fallback-indicator').style.display = 'inline';
+            document.getElementById('rsi-fallback-indicator').style.display = 'inline';
         }
     }
 
@@ -392,6 +422,7 @@ class NiftyTracker {
         if (this.isLoading) return;
         this.loadAllData();
     }
+    
     setLoadingState(isLoading) {
         this.isLoading = isLoading;
         const refreshBtn = document.getElementById('refresh-btn');
@@ -402,13 +433,13 @@ class NiftyTracker {
             refreshBtn.style.opacity = isLoading ? '0.6' : '1';
         }
     }
+    
     updateAllUI() {
         this.updateMarketOverview();
         this.updateTechnicalAnalysis();
         this.updateInvestmentSignal();
     }
 
-    /* ---------- MARKET CORRECTION/UPSIDE/STATUS CODE ---------- */
     getMarketCondition(correctionPercent) {
         if (correctionPercent >= -2) {
             return { status: 'Near ATH', class: 'positive', desc: 'Market at or near all-time highs' };
@@ -422,6 +453,7 @@ class NiftyTracker {
             return { status: 'Deep Bear', class: 'negative', desc: 'Major market correction' };
         }
     }
+    
     updateMarketOverview() {
         this.updateElementText('current-price', this.data.current_price ? this.formatNumber(this.data.current_price) : 'N/A');
         if (this.data.current_price && this.data.previous_close) {
@@ -429,7 +461,6 @@ class NiftyTracker {
             const changePercent = (change / this.data.previous_close) * 100;
             this.updateElementText('price-change', (change >= 0 ? '+' : '') + change.toFixed(2));
             this.updateElementText('price-change-percent', `(${change >= 0 ? '+' : ''}${changePercent.toFixed(3)}%)`);
-            // Color code
             const priceChangeEl = document.getElementById('price-change');
             const priceChangePercentEl = document.getElementById('price-change-percent');
             if (priceChangeEl) priceChangeEl.className = `change-value ${change >= 0 ? 'positive' : 'negative'}`;
@@ -441,16 +472,11 @@ class NiftyTracker {
         this.updateElementText('low-52w', this.data.low_52w ? this.formatCurrency(this.data.low_52w) : 'N/A');
         this.updateElementText('all-time-high', this.data.all_time_high ? this.formatCurrency(this.data.all_time_high) : 'N/A');
         
-        // Correction percentage and upside from ATH
         if (this.data.current_price && this.data.all_time_high) {
             const correctionPercent = ((this.data.current_price - this.data.all_time_high) / this.data.all_time_high) * 100;
             this.updateElementText('ath-correction', correctionPercent.toFixed(2) + '%');
-            
-            // Upside potential
             const upsidePercent = ((this.data.all_time_high - this.data.current_price) / this.data.current_price) * 100;
             this.updateElementText('ath-upside', '+' + upsidePercent.toFixed(2) + '%');
-
-            // Market status
             const condition = this.getMarketCondition(correctionPercent);
             this.updateElementText('ath-status', condition.status);
             const athCorrectionEl = document.getElementById('ath-correction');
@@ -459,12 +485,13 @@ class NiftyTracker {
             if (athStatusEl) athStatusEl.className = `data-value ${condition.class}`;
         }
     }
+    
     updateTechnicalAnalysis() {
         this.updateElementText('dma-50', this.data.dma_50 ? this.formatCurrency(this.data.dma_50) : 'N/A');
         this.updateElementText('dma-200', this.data.dma_200 ? this.formatCurrency(this.data.dma_200) : 'N/A');
         this.updateElementText('ema-20', this.data.ema_20 ? this.formatCurrency(this.data.ema_20) : 'N/A');
         this.updateElementText('ema-50', this.data.ema_50 ? this.formatCurrency(this.data.ema_50) : 'N/A');
-        // PE Ratio
+        
         const peElement = document.getElementById('pe-ratio');
         if (peElement && this.data.pe_ratio) {
             peElement.textContent = this.data.pe_ratio.toFixed(2);
@@ -472,7 +499,7 @@ class NiftyTracker {
             else if (this.data.pe_ratio > 25) peElement.className = 'data-value negative';
             else peElement.className = 'data-value neutral';
         }
-        // RSI
+        
         const rsiElement = document.getElementById('rsi-value');
         if (rsiElement && this.data.rsi) {
             rsiElement.textContent = this.data.rsi.toFixed(2);
@@ -480,7 +507,7 @@ class NiftyTracker {
             else if (this.data.rsi > 70) rsiElement.className = 'data-value negative';
             else rsiElement.className = 'data-value neutral';
         }
-        // EMA crossover
+        
         if (this.data.ema_20 && this.data.ema_50) {
             const isBullish = this.data.ema_20 > this.data.ema_50;
             this.updateElementText('crossover-icon', isBullish ? '📈' : '📉');
@@ -489,6 +516,7 @@ class NiftyTracker {
             if (crossoverStatus) crossoverStatus.className = `crossover-label ${isBullish ? 'bullish' : 'bearish'}`;
         }
     }
+    
     updateInvestmentSignal() {
         if (!this.data.ema_20 || !this.data.ema_50) return;
         const isBullish = this.data.ema_20 > this.data.ema_50;
@@ -542,22 +570,25 @@ class NiftyTracker {
             lastUpdatedEl.textContent = `Last updated: ${timeString} IST`;
         }
     }
+    
     updateElementText(id, text) {
         const element = document.getElementById(id);
         if (element) element.textContent = text;
     }
+    
     formatNumber(num) {
         if (num == null || isNaN(num)) return 'N/A';
         return num.toLocaleString('en-IN', { maximumFractionDigits: 2 });
     }
+    
     formatCurrency(num) {
         if (num == null || isNaN(num)) return 'N/A';
         return '₹' + this.formatNumber(num);
     }
 }
-// Initialize the app when DOM is loaded
+
 document.addEventListener('DOMContentLoaded', () => { new NiftyTracker(); });
-// Service Worker registration
+
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js')
         .then(registration => console.log('SW registered'))
