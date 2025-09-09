@@ -4,7 +4,6 @@ import puppeteer from 'puppeteer-core';
 
 export default async function handler(req, res) {
   try {
-    // Prepare Chromium path/args for serverless
     const executablePath = await chromium.executablePath();
 
     const browser = await puppeteer.launch({
@@ -15,31 +14,26 @@ export default async function handler(req, res) {
     });
 
     const page = await browser.newPage();
-    // Helpful headers for NSE pages
     await page.setUserAgent(
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122 Safari/537.36'
     );
-    await page.setExtraHTTPHeaders({
-      'accept-language': 'en-GB,en;q=0.9'
-    });
+    await page.setExtraHTTPHeaders({ 'accept-language': 'en-GB,en;q=0.9' });
 
-    // Warm-up to set cookies/domains NSE often expects
+    // Hit home first so NSE sets cookies
     await page.goto('https://www.nseindia.com/', { waitUntil: 'networkidle2', timeout: 60000 });
 
-    // Navigate to indices data page
+    // Indices data page (structure may change over time)
     await page.goto('https://www.nseindia.com/market-data/indices-data', { waitUntil: 'networkidle2', timeout: 60000 });
 
-    // Wait for a table to render (the page structure can change over time)
+    // Wait for any table to render
     await page.waitForSelector('table', { timeout: 45000 });
 
-    // Try to find the row for NIFTY 50 and locate the PE column
     const pe = await page.evaluate(() => {
-      // Find any table that contains a header with PE/P-E and a row with NIFTY 50
       const tables = Array.from(document.querySelectorAll('table'));
       for (const table of tables) {
         const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.innerText.trim().toUpperCase());
         let peIndex = headers.findIndex(h => h.includes('P/E') || h === 'PE' || h.includes('P E'));
-        if (peIndex === -1) peIndex = 2; // fallback guess if header text unavailable
+        if (peIndex === -1) peIndex = 2; // heuristic fallback
 
         const rows = Array.from(table.querySelectorAll('tbody tr'));
         for (const row of rows) {
