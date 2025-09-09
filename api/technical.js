@@ -74,7 +74,6 @@ export default async function handler(req, res) {
       source: (!peFallback && !rsiFallback) ? 'yahoo' : 'partial-fallback'
     });
   } catch (error) {
-    // If everything fails, both fallback
     res.status(200).json({
       symbol: '^NSEI',
       peRatio: 21.73,
@@ -89,7 +88,6 @@ export default async function handler(req, res) {
   }
 }
 
-// RSI calculation helper
 function calculateRSI(prices, period = 14) {
   if (prices.length < period + 1) return 50;
   let gains = 0;
@@ -103,6 +101,5 @@ function calculateRSI(prices, period = 14) {
   const avgLoss = losses / period;
   if (avgLoss === 0) return 100;
   const rs = avgGain / avgLoss;
-  const rsi = 100 - (100 / (1 + rs));
-  return Math.round(rsi * 100) / 100;
+  return Math.round((100 - (100 / (1 + rs))) * 100) / 100;
 }
