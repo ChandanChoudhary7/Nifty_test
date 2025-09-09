@@ -1,4 +1,13 @@
 {
+  "functions": {
+    "api/*.js": {
+      "memory": 1024,
+      "maxDuration": 60,
+      "includeFiles": [
+        "node_modules/@sparticuz/chromium/**"
+      ]
+    }
+  },
   "headers": [
     {
       "source": "/api/(.*)",
@@ -34,17 +43,9 @@
     }
   ],
   "rewrites": [
-    {
-      "source": "/api/quote",
-      "destination": "/api/quote"
-    },
-    {
-      "source": "/api/averages", 
-      "destination": "/api/averages"
-    },
-    {
-      "source": "/api/ema",
-      "destination": "/api/ema"
-    }
+    { "source": "/api/quote", "destination": "/api/quote" },
+    { "source": "/api/averages", "destination": "/api/averages" },
+    { "source": "/api/ema", "destination": "/api/ema" },
+    { "source": "/api/nifty_pe", "destination": "/api/nifty_pe" }
   ]
 }
