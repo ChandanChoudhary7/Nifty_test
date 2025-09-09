@@ -1,6 +1,5 @@
 // api/technical.js
-// - PE comes from your internal NSE scraper (/api/nifty_pe)
-// - RSI computed from Yahoo chart closes
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET');
@@ -12,9 +11,13 @@ export default async function handler(req, res) {
   let rsiFallback = false;
 
   try {
-    // 1) PE from your NSE scraper
+    // Get PE from internal NSE scraper API
     try {
-      const peResp = await fetch(`${process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : ''}/api/nifty_pe`);
+      const protocol = req.headers['x-forwarded-proto'] || 'https';
+      const host = req.headers['x-forwarded-host'] || req.headers.host;
+      const baseUrl = `${protocol}://${host}`;
+
+      const peResp = await fetch(`${baseUrl}/api/nifty_pe`);
       if (peResp.ok) {
         const peJson = await peResp.json();
         if (typeof peJson.peRatio === 'number') {
@@ -29,18 +32,21 @@ export default async function handler(req, res) {
       peFallback = true;
     }
 
-    // 2) RSI from Yahoo daily closes
+    // Calculate RSI using Yahoo Finance data
     try {
       const chartResponse = await fetch(
         `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=1mo&interval=1d`,
         { headers: { 'User-Agent': 'Mozilla/5.0' } }
       );
+
       if (chartResponse.ok) {
         const chartData = await chartResponse.json();
-        const result = chartData?.chart?.result?.;
-        const closes = result?.indicators?.quote?.?.close?.filter(c => c != null) || [];
+        const result = chartData?.chart?.result?.[0];
+        const closes = result?.indicators?.quote?.[0]?.close?.filter(c => c != null) || [];
+
         if (closes.length > 15) {
           rsi = calculateRSI(closes);
+          rsiFallback = false;
         } else {
           rsiFallback = true;
         }
@@ -51,16 +57,16 @@ export default async function handler(req, res) {
       rsiFallback = true;
     }
 
-    // If any missing, flag fallback (do NOT hardcode values; just leave null and flag)
     res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=86400');
     return res.status(200).json({
       symbol,
-      peRatio,        // may be null; UI should show "(Not real-time)" if fallback.pe is true
-      rsi,            // may be null; UI should show "(Not real-time)" if fallback.rsi is true
-      fallback: { pe: peFallback || peRatio == null, rsi: rsiFallback || rsi == null },
-      source: (!peFallback && peRatio != null && !rsiFallback && rsi != null) ? 'live' : 'partial-fallback',
+      peRatio,
+      rsi,
+      fallback: { pe: peFallback || peRatio === null, rsi: rsiFallback || rsi === null },
+      source: (!peFallback && peRatio !== null && !rsiFallback && rsi !== null) ? 'live' : 'partial-fallback',
       timestamp: new Date().toISOString()
     });
+
   } catch (error) {
     return res.status(500).json({
       symbol,
