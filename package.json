@@ -1,0 +1,9 @@
+{
+  "name": "nifty-tracker",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@sparticuz/chromium": "^117.0.0",
+    "puppeteer-core": "^21.7.0"
+  }
+}
