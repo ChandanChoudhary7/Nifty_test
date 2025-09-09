@@ -8,6 +8,14 @@
       ]
     }
   },
+  "rewrites": [
+    { "source": "/api/quote", "destination": "/api/quote" },
+    { "source": "/api/averages", "destination": "/api/averages" },
+    { "source": "/api/ema", "destination": "/api/ema" },
+    { "source": "/api/nifty_pe", "destination": "/api/nifty_pe" }
+  ]
+}
+,
   "headers": [
     {
       "source": "/api/(.*)",
