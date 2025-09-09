@@ -9,14 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#0F172A">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Nifty 50 Tracker">
-    
-    <!-- Web App Manifest -->
     <link rel="manifest" href="manifest.json">
 </head>
 <body>
@@ -28,7 +21,7 @@
             <p>Loading market data...</p>
         </div>
     </div>
-    
+
     <!-- Main App -->
     <div id="app" class="app hidden">
         <!-- Header -->
@@ -57,85 +50,84 @@
         <main class="main-content">
             <div class="container">
                 <!-- Market Overview Section -->
-<section class="section market-overview">
-    <div class="section-header">
-        <span class="section-icon">📊</span>
-        <h2>Market Overview</h2>
-    </div>
-    
-    <div class="cards-grid">
-        <!-- Current Price Card -->
-        <div class="card price-card">
-            <div class="card__body">
-                <div class="price-header">
-                    <span class="price-label">NIFTY 50</span>
-                    <span id="trend-indicator" class="trend-indicator"></span>
-                </div>
-                <div class="price-value">
-                    <span class="currency">₹</span>
-                    <span id="current-price">Loading...</span>
-                </div>
-                <div class="price-change">
-                    <span id="price-change" class="change-value">--</span>
-                    <span id="price-change-percent" class="change-percent">--</span>
-                </div>
-            </div>
-        </div>
-        <!-- Market Data Cards -->
-        <div class="card data-card">
-            <div class="card__body">
-                <div class="data-item">
-                    <span class="data-label">Previous Close</span>
-                    <span id="prev-close" class="data-value">Loading...</span>
-                </div>
-                <div class="data-item">
-                    <span class="data-label">Open</span>
-                    <span id="open-price" class="data-value">Loading...</span>
-                </div>
-            </div>
-        </div>
-        <div class="card data-card">
-            <div class="card__body">
-                <div class="data-item">
-                    <span class="data-label">52W High</span>
-                    <span id="high-52w" class="data-value">Loading...</span>
-                </div>
-                <div class="data-item">
-                    <span class="data-label">52W Low</span>
-                    <span id="low-52w" class="data-value">Loading...</span>
-                </div>
-            </div>
-        </div>
-        <!-- All-Time High Analysis Card -->
-        <div class="card data-card">
-            <div class="card__body">
-                <div class="data-item">
-                    <span class="data-label">All-Time High</span>
-                    <span id="all-time-high" class="data-value">₹26,277.35</span>
-                </div>
-                <div class="data-item">
-                    <span class="data-label">Correction from ATH</span>
-                    <span id="ath-correction" class="data-value">Loading...</span>
-                </div>
-            </div>
-        </div>
-        <!-- Upside Potential Card -->
-        <div class="card data-card">
-            <div class="card__body">
-                <div class="data-item">
-                    <span class="data-label">Upside to ATH</span>
-                    <span id="ath-upside" class="data-value">Loading...</span>
-                </div>
-                <div class="data-item">
-                    <span class="data-label">Status</span>
-                    <span id="ath-status" class="data-value">Loading...</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+                <section class="section market-overview">
+                    <div class="section-header">
+                        <span class="section-icon">📊</span>
+                        <h2>Market Overview</h2>
+                    </div>
+                    
+                    <div class="cards-grid">
+                        <!-- Current Price Card -->
+                        <div class="card price-card">
+                            <div class="card__body">
+                                <div class="price-header">
+                                    <span class="price-label">NIFTY 50</span>
+                                    <span id="trend-indicator" class="trend-indicator"></span>
+                                </div>
+                                <div class="price-value">
+                                    <span class="currency">₹</span>
+                                    <span id="current-price">Loading...</span>
+                                </div>
+                                <div class="price-change">
+                                    <span id="price-change" class="change-value">--</span>
+                                    <span id="price-change-percent" class="change-percent">--</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Market Data Cards -->
+                        <div class="card data-card">
+                            <div class="card__body">
+                                <div class="data-item">
+                                    <span class="data-label">Previous Close</span>
+                                    <span id="prev-close" class="data-value">Loading...</span>
+                                </div>
+                                <div class="data-item">
+                                    <span class="data-label">Open</span>
+                                    <span id="open-price" class="data-value">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card data-card">
+                            <div class="card__body">
+                                <div class="data-item">
+                                    <span class="data-label">52W High</span>
+                                    <span id="high-52w" class="data-value">Loading...</span>
+                                </div>
+                                <div class="data-item">
+                                    <span class="data-label">52W Low</span>
+                                    <span id="low-52w" class="data-value">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- All-Time High Analysis Card -->
+                        <div class="card data-card">
+                            <div class="card__body">
+                                <div class="data-item">
+                                    <span class="data-label">All-Time High</span>
+                                    <span id="all-time-high" class="data-value">Loading...</span>
+                                </div>
+                                <div class="data-item">
+                                    <span class="data-label">Correction from ATH</span>
+                                    <span id="ath-correction" class="data-value">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Upside Potential Card -->
+                        <div class="card data-card">
+                            <div class="card__body">
+                                <div class="data-item">
+                                    <span class="data-label">Upside to ATH</span>
+                                    <span id="ath-upside" class="data-value">Loading...</span>
+                                </div>
+                                <div class="data-item">
+                                    <span class="data-label">Status</span>
+                                    <span id="ath-status" class="data-value">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
-                
                 <!-- Technical Analysis Section -->
                 <section class="section technical-analysis">
                     <div class="section-header">
@@ -197,7 +189,6 @@
                         </div>
                     </div>
                 </section>
-                
                 <!-- Investment Signal Section -->
                 <section class="section investment-signal">
                     <div class="section-header">
@@ -227,7 +218,6 @@
                 </section>
             </div>
         </main>
-        
         <!-- Footer -->
         <footer class="footer">
             <div class="footer-content">
@@ -244,486 +234,335 @@
         </footer>
     </div>
 
-    <script>
-        // Nifty 50 Investment Tracker - Dynamic Data Fetching
-        class NiftyTracker {
-            constructor() {
-    this.data = {
-        current_price: null,
-        previous_close: null,
-        open: null,
-        high_52w: null,
-        low_52w: null,
-        all_time_high: 26277.35, // Nifty 50 ATH
-        dma_50: null,
-        dma_200: null,
-        ema_20: null,
-        ema_50: null,
-        pe_ratio: null,
-        rsi: null,
-        last_updated: null
-    };
-    
-    this.isLoading = false;
-    this.isConnected = navigator.onLine;
-    
-    this.init();
-}
+<script>
+class NiftyTracker {
+    constructor() {
+        this.data = {
+            current_price: null,
+            previous_close: null,
+            open: null,
+            high_52w: null,
+            low_52w: null,
+            all_time_high: null,
+            dma_50: null,
+            dma_200: null,
+            ema_20: null,
+            ema_50: null,
+            pe_ratio: null,
+            rsi: null,
+            last_updated: null
+        };
+        this.isLoading = false;
+        this.isConnected = navigator.onLine;
+        this.init();
+    }
 
-            
-            init() {
-                this.showLoadingScreen();
-                this.bindEvents();
-                this.updateConnectionStatus();
-                
-                // Start loading data immediately
-                setTimeout(() => {
-                    this.hideLoadingScreen();
-                    this.loadAllData();
-                }, 1500);
-            }
-            
-            bindEvents() {
-                const refreshBtn = document.getElementById('refresh-btn');
-                if (refreshBtn) {
-                    refreshBtn.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        this.refreshData();
-                    });
-                }
-                
-                // Connection status monitoring
-                window.addEventListener('online', () => {
-                    this.isConnected = true;
-                    this.updateConnectionStatus();
-                });
-                
-                window.addEventListener('offline', () => {
-                    this.isConnected = false;
-                    this.updateConnectionStatus();
-                });
-            }
-            
-            showLoadingScreen() {
-                const loadingScreen = document.getElementById('loading-screen');
-                const app = document.getElementById('app');
-                
-                if (loadingScreen && app) {
-                    loadingScreen.style.display = 'flex';
-                    app.classList.add('hidden');
-                }
-            }
-            
-            hideLoadingScreen() {
-                const loadingScreen = document.getElementById('loading-screen');
-                const app = document.getElementById('app');
-                
-                if (loadingScreen && app) {
-                    loadingScreen.style.display = 'none';
-                    app.classList.remove('hidden');
-                }
-            }
-            
-            updateConnectionStatus() {
-                const dot = document.getElementById('connection-dot');
-                const text = document.getElementById('connection-text');
-                
-                if (dot && text) {
-                    if (this.isConnected) {
-                        dot.className = 'connection-dot connected';
-                        text.textContent = 'Connected';
-                    } else {
-                        dot.className = 'connection-dot disconnected';
-                        text.textContent = 'Offline';
-                    }
-                }
-            }
-            
-            async loadAllData() {
-                try {
-                    this.setLoadingState(true);
-                    
-                    // Load all data in parallel
-                    await Promise.all([
-                        this.loadQuoteData(),
-                        this.loadAveragesData(),
-                        this.loadEMAData(),
-                        this.loadTechnicalData()
-                    ]);
-                    
-                    this.data.last_updated = new Date().toISOString();
-                    this.updateAllUI();
-                    this.updateLastUpdated();
-                    
-                } catch (error) {
-                    console.error('Error loading ', error);
-                    this.updateAllUI(); // Still update with whatever data we have
-                } finally {
-                    this.setLoadingState(false);
-                }
-            }
-            
-            async loadQuoteData() {
-                try {
-                    console.log('Fetching quote data...');
-                    const response = await fetch('/api/quote');
-                    if (response.ok) {
-                        const data = await response.json();
-                        console.log('Quote data received:', data);
-                        
-                        this.data.current_price = data.regularMarketPrice;
-                        this.data.previous_close = data.previousClose;
-                        this.data.open = data.regularMarketOpen;
-                        this.data.high_52w = data.fiftyTwoWeekHigh;
-                        this.data.low_52w = data.fiftyTwoWeekLow;
-                    }
-                } catch (error) {
-                    console.warn('Failed to load quote ', error);
-                    // Set fallback values if API fails
-                    this.data.current_price = 24775.51;
-                    this.data.previous_close = 24734.30;
-                    this.data.open = 24818.85;
-                    this.data.high_52w = 26277.35;
-                    this.data.low_52w = 21743.65;
-                }
-            }
-            
-            async loadAveragesData() {
-                try {
-                    console.log('Fetching averages data...');
-                    const response = await fetch('/api/averages');
-                    if (response.ok) {
-                        const data = await response.json();
-                        console.log('Averages data received:', data);
-                        
-                        this.data.dma_50 = data.fiftyDayAverage;
-                        this.data.dma_200 = data.twoHundredDayAverage;
-                    }
-                } catch (error) {
-                    console.warn('Failed to load averages ', error);
-                    // Set fallback values if API fails
-                    this.data.dma_50 = 24734.31;
-                    this.data.dma_200 = 24788.64;
-                }
-            }
-            
-            async loadEMAData() {
-                try {
-                    console.log('Fetching EMA data...');
-                    const [ema20Response, ema50Response] = await Promise.all([
-                        fetch('/api/ema?period=20'),
-                        fetch('/api/ema?period=50')
-                    ]);
-                    
-                    if (ema20Response.ok) {
-                        const data = await ema20Response.json();
-                        console.log('EMA 20 data received:', data);
-                        this.data.ema_20 = data.ema;
-                    }
-                    
-                    if (ema50Response.ok) {
-                        const data = await ema50Response.json();
-                        console.log('EMA 50 data received:', data);
-                        this.data.ema_50 = data.ema;
-                    }
-                    
-                    // Fallback if API calls failed
-                    if (!this.data.ema_20) this.data.ema_20 = 24724.75;
-                    if (!this.data.ema_50) this.data.ema_50 = 24783.85;
-                    
-                } catch (error) {
-                    console.warn('Failed to load EMA ', error);
-                    this.data.ema_20 = 24724.75;
-                    this.data.ema_50 = 24783.85;
-                }
-            }
-            
-            async loadTechnicalData() {
-                try {
-                    console.log('Fetching technical indicators...');
-                    
-                    // Try to fetch PE ratio from Yahoo Finance
-                    try {
-                        const peResponse = await fetch('/api/technical');
-                        if (peResponse.ok) {
-                            const data = await peResponse.json();
-                            this.data.pe_ratio = data.peRatio;
-                            this.data.rsi = data.rsi;
-                        }
-                    } catch (error) {
-                        console.warn('Technical data API not available, using fallback');
-                    }
-                    
-                    // Calculate RSI from historical data if not available
-                    if (!this.data.rsi) {
-                        this.data.rsi = await this.calculateRSIFallback();
-                    }
-                    
-                    // Use fallback PE if not available
-                    if (!this.data.pe_ratio) {
-                        this.data.pe_ratio = 21.73; // Current market average
-                    }
-                    
-                } catch (error) {
-                    console.warn('Failed to load technical ', error);
-                    this.data.pe_ratio = 21.73;
-                    this.data.rsi = 53.21;
-                }
-            }
-            
-            async calculateRSIFallback() {
-                try {
-                    // Try to get historical data for RSI calculation
-                    const response = await fetch('/api/historical?days=15');
-                    if (response.ok) {
-                        const data = await response.json();
-                        return this.calculateRSI(data.prices);
-                    }
-                } catch (error) {
-                    console.warn('Could not calculate RSI from historical data');
-                }
-                return 53.21; // Default fallback
-            }
-            
-            calculateRSI(prices, period = 14) {
-                if (prices.length < period + 1) return 50; // Default if insufficient data
-                
-                let gains = 0;
-                let losses = 0;
-                
-                // Calculate initial average gain and loss
-                for (let i = 1; i <= period; i++) {
-                    const change = prices[i] - prices[i - 1];
-                    if (change > 0) gains += change;
-                    else losses += Math.abs(change);
-                }
-                
-                const avgGain = gains / period;
-                const avgLoss = losses / period;
-                
-                if (avgLoss === 0) return 100;
-                
-                const rs = avgGain / avgLoss;
-                const rsi = 100 - (100 / (1 + rs));
-                
-                return Math.round(rsi * 100) / 100;
-            }
-            
-            refreshData() {
-                if (this.isLoading) return;
-                console.log('Refreshing data...');
-                this.loadAllData();
-            }
-            
-            setLoadingState(isLoading) {
-                this.isLoading = isLoading;
-                const refreshBtn = document.getElementById('refresh-btn');
-                const refreshText = document.querySelector('.refresh-text');
-                
-                if (refreshBtn && refreshText) {
-                    refreshBtn.disabled = isLoading;
-                    refreshText.textContent = isLoading ? 'Loading...' : 'Refresh';
-                    refreshBtn.style.opacity = isLoading ? '0.6' : '1';
-                }
-            }
-            
-            updateAllUI() {
-                this.updateMarketOverview();
-                this.updateTechnicalAnalysis();
-                this.updateInvestmentSignal();
-            }
-            
-            updateMarketOverview() {
-                // Update current price
-                const currentPriceEl = document.getElementById('current-price');
-                if (currentPriceEl && this.data.current_price) {
-                    currentPriceEl.textContent = this.formatNumber(this.data.current_price);
-                }
-                
-                // Update price change
-                if (this.data.current_price && this.data.previous_close) {
-                    const change = this.data.current_price - this.data.previous_close;
-                    const changePercent = (change / this.data.previous_close) * 100;
-                    
-                    const priceChangeEl = document.getElementById('price-change');
-                    const priceChangePercentEl = document.getElementById('price-change-percent');
-                    
-                    if (priceChangeEl && priceChangePercentEl) {
-                        priceChangeEl.textContent = (change >= 0 ? '+' : '') + change.toFixed(2);
-                        priceChangeEl.className = `change-value ${change >= 0 ? 'positive' : 'negative'}`;
-                        
-                        priceChangePercentEl.textContent = `(${change >= 0 ? '+' : ''}${changePercent.toFixed(3)}%)`;
-                        priceChangePercentEl.className = `change-percent ${change >= 0 ? 'positive' : 'negative'}`;
-                    }
-                }
-                
-                // Update other market data
-                this.updateElementText('prev-close', this.data.previous_close ? this.formatCurrency(this.data.previous_close) : 'N/A');
-                this.updateElementText('open-price', this.data.open ? this.formatCurrency(this.data.open) : 'N/A');
-                this.updateElementText('high-52w', this.data.high_52w ? this.formatCurrency(this.data.high_52w) : 'N/A');
-                this.updateElementText('low-52w', this.data.low_52w ? this.formatCurrency(this.data.low_52w) : 'N/A');
-            }
-            
-            updateTechnicalAnalysis() {
-                // Update moving averages
-                this.updateElementText('dma-50', this.data.dma_50 ? this.formatCurrency(this.data.dma_50) : 'N/A');
-                this.updateElementText('dma-200', this.data.dma_200 ? this.formatCurrency(this.data.dma_200) : 'N/A');
-                
-                // Update EMAs
-                this.updateElementText('ema-20', this.data.ema_20 ? this.formatCurrency(this.data.ema_20) : 'N/A');
-                this.updateElementText('ema-50', this.data.ema_50 ? this.formatCurrency(this.data.ema_50) : 'N/A');
-                
-                // Update PE Ratio with color coding
-                const peElement = document.getElementById('pe-ratio');
-                if (peElement && this.data.pe_ratio) {
-                    peElement.textContent = this.data.pe_ratio.toFixed(2);
-                    // Color code: Green if < 21 (attractive), Red if > 25 (expensive), Yellow otherwise
-                    if (this.data.pe_ratio < 21) {
-                        peElement.className = 'data-value positive';
-                    } else if (this.data.pe_ratio > 25) {
-                        peElement.className = 'data-value negative';
-                    } else {
-                        peElement.className = 'data-value neutral';
-                    }
-                }
-                
-                // Update RSI with color coding
-                const rsiElement = document.getElementById('rsi-value');
-                if (rsiElement && this.data.rsi) {
-                    rsiElement.textContent = this.data.rsi.toFixed(2);
-                    // Color code: Green if < 30 (oversold), Red if > 70 (overbought), Yellow otherwise
-                    if (this.data.rsi < 30) {
-                        rsiElement.className = 'data-value positive';
-                    } else if (this.data.rsi > 70) {
-                        rsiElement.className = 'data-value negative';
-                    } else {
-                        rsiElement.className = 'data-value neutral';
-                    }
-                }
-                
-                // Update crossover analysis
-                if (this.data.ema_20 && this.data.ema_50) {
-                    const isBullish = this.data.ema_20 > this.data.ema_50;
-                    const crossoverIcon = document.getElementById('crossover-icon');
-                    const crossoverStatus = document.getElementById('crossover-status');
-                    
-                    if (crossoverIcon && crossoverStatus) {
-                        crossoverIcon.textContent = isBullish ? '📈' : '📉';
-                        crossoverStatus.textContent = isBullish ? 'BULLISH' : 'BEARISH';
-                        crossoverStatus.className = `crossover-label ${isBullish ? 'bullish' : 'bearish'}`;
-                    }
-                }
-            }
-            
-            updateInvestmentSignal() {
-                if (!this.data.ema_20 || !this.data.ema_50) return;
-                
-                const isBullish = this.data.ema_20 > this.data.ema_50;
-                const peAttractive = this.data.pe_ratio && this.data.pe_ratio < 21;
-                const rsiOversold = this.data.rsi && this.data.rsi < 30;
-                const rsiOverbought = this.data.rsi && this.data.rsi > 70;
-                const peExpensive = this.data.pe_ratio && this.data.pe_ratio > 25;
-                
-                const signalIcon = document.getElementById('signal-icon');
-                const signalText = document.getElementById('signal-text');
-                const signalDescription = document.getElementById('signal-description');
-                const trendStatus = document.getElementById('trend-status');
-                const momentumStatus = document.getElementById('momentum-status');
-                
-                if (signalIcon && signalText && signalDescription) {
-                    // Enhanced decision logic considering EMA, PE, and RSI
-                    if (isBullish && (peAttractive || rsiOversold)) {
-                        signalIcon.textContent = '🚀';
-                        signalText.textContent = 'STRONG BUY';
-                        signalDescription.textContent = `Excellent opportunity! EMA bullish (20: ₹${this.data.ema_20.toFixed(2)} > 50: ₹${this.data.ema_50.toFixed(2)}), PE: ${this.data.pe_ratio?.toFixed(2) || 'N/A'}, RSI: ${this.data.rsi?.toFixed(2) || 'N/A'}. Multiple indicators align.`;
-                    } else if (isBullish && !peExpensive && !rsiOverbought) {
-                        signalIcon.textContent = '📈';
-                        signalText.textContent = 'BUY';
-                        signalDescription.textContent = `Bullish momentum detected. 20 EMA above 50 EMA. PE: ${this.data.pe_ratio?.toFixed(2) || 'N/A'}, RSI: ${this.data.rsi?.toFixed(2) || 'N/A'}. Consider adding positions.`;
-                    } else if (!isBullish && (peExpensive || rsiOverbought)) {
-                        signalIcon.textContent = '🔴';
-                        signalText.textContent = 'STRONG AVOID';
-                        signalDescription.textContent = `Multiple bearish signals. EMA bearish, PE: ${this.data.pe_ratio?.toFixed(2) || 'N/A'}, RSI: ${this.data.rsi?.toFixed(2) || 'N/A'}. Avoid new positions strongly.`;
-                    } else {
-                        signalIcon.textContent = '⚠️';
-                        signalText.textContent = 'WAIT';
-                        signalDescription.textContent = `Mixed signals detected. EMA: ${isBullish ? 'Bullish' : 'Bearish'}, PE: ${this.data.pe_ratio?.toFixed(2) || 'N/A'}, RSI: ${this.data.rsi?.toFixed(2) || 'N/A'}. Wait for clearer direction.`;
-                    }
-                }
-                
-                if (trendStatus && momentumStatus) {
-                    trendStatus.textContent = isBullish ? 'BULLISH' : 'BEARISH';
-                    trendStatus.className = `detail-value ${isBullish ? 'bullish' : 'bearish'}`;
-                    
-                    // Enhanced momentum status considering RSI
-                    let momentumText = 'NEUTRAL';
-                    let momentumClass = 'neutral';
-                    
-                    if (rsiOversold) {
-                        momentumText = 'OVERSOLD';
-                        momentumClass = 'bullish';
-                    } else if (rsiOverbought) {
-                        momentumText = 'OVERBOUGHT';
-                        momentumClass = 'bearish';
-                    } else if (isBullish) {
-                        momentumText = 'POSITIVE';
-                        momentumClass = 'bullish';
-                    } else {
-                        momentumText = 'NEGATIVE';
-                        momentumClass = 'bearish';
-                    }
-                    
-                    momentumStatus.textContent = momentumText;
-                    momentumStatus.className = `detail-value ${momentumClass}`;
-                }
-            }
-            
-            updateLastUpdated() {
-                const lastUpdatedEl = document.getElementById('lastUpdated');
-                if (lastUpdatedEl) {
-                    const now = new Date();
-                    const timeString = now.toLocaleString('en-IN', {
-                        timeZone: 'Asia/Kolkata',
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit'
-                    });
-                    lastUpdatedEl.textContent = `Last updated: ${timeString} IST`;
-                }
-            }
-            
-            updateElementText(id, text) {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.textContent = text;
-                }
-            }
-            
-            formatNumber(num) {
-                if (num == null || isNaN(num)) return 'N/A';
-                return num.toLocaleString('en-IN', { maximumFractionDigits: 2 });
-            }
-            
-            formatCurrency(num) {
-                if (num == null || isNaN(num)) return 'N/A';
-                return '₹' + this.formatNumber(num);
-            }
+    init() {
+        this.showLoadingScreen();
+        this.bindEvents();
+        this.updateConnectionStatus();
+        setTimeout(() => {
+            this.hideLoadingScreen();
+            this.loadAllData();
+        }, 1000);
+    }
+
+    bindEvents() {
+        const refreshBtn = document.getElementById('refresh-btn');
+        if (refreshBtn) {
+            refreshBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.refreshData();
+            });
         }
-        
-        // Initialize the app when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            new NiftyTracker();
+        window.addEventListener('online', () => {
+            this.isConnected = true; this.updateConnectionStatus();
         });
-        
-        // Service Worker registration
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js')
-                .then(registration => console.log('SW registered'))
-                .catch(error => console.log('SW registration failed'));
+        window.addEventListener('offline', () => {
+            this.isConnected = false; this.updateConnectionStatus();
+        });
+    }
+    showLoadingScreen() {
+        document.getElementById('loading-screen').style.display = 'flex';
+        document.getElementById('app').classList.add('hidden');
+    }
+    hideLoadingScreen() {
+        document.getElementById('loading-screen').style.display = 'none';
+        document.getElementById('app').classList.remove('hidden');
+    }
+    updateConnectionStatus() {
+        const dot = document.getElementById('connection-dot');
+        const text = document.getElementById('connection-text');
+        if (dot && text) {
+            if (this.isConnected) {
+                dot.className = 'connection-dot connected';
+                text.textContent = 'Connected';
+            } else {
+                dot.className = 'connection-dot disconnected';
+                text.textContent = 'Offline';
+            }
         }
-    </script>
+    }
+    async loadAllData() {
+        try {
+            this.setLoadingState(true);
+            await Promise.all([
+                this.loadQuoteData(),
+                this.loadAveragesData(),
+                this.loadEMAData(),
+                this.loadTechnicalData()
+            ]);
+            this.data.last_updated = new Date().toISOString();
+            this.updateAllUI();
+            this.updateLastUpdated();
+        } catch (error) {
+            console.error('Error loading data:', error);
+            this.updateAllUI();
+        } finally { this.setLoadingState(false); }
+    }
+
+    async loadQuoteData() {
+        try {
+            const response = await fetch('/api/quote');
+            if (response.ok) {
+                const data = await response.json();
+                this.data.current_price = data.regularMarketPrice;
+                this.data.previous_close = data.previousClose;
+                this.data.open = data.regularMarketOpen;
+                this.data.high_52w = data.fiftyTwoWeekHigh;
+                this.data.low_52w = data.fiftyTwoWeekLow;
+                // For ATH: use either highest close/open in history or 
+                // latest 52-week high or get actual ATH from /api/ath (if available)
+                this.data.all_time_high = Math.max(data.fiftyTwoWeekHigh || 0, data.allTimeHigh || 0);
+            }
+        } catch (error) {
+            // Fallback (Nifty ATH as of Sep 2025)
+            this.data.current_price = 24775.51;
+            this.data.previous_close = 24734.30;
+            this.data.open = 24818.85;
+            this.data.high_52w = 26277.35;
+            this.data.low_52w = 21743.65;
+            this.data.all_time_high = 26277.35;
+        }
+    }
+
+    async loadAveragesData() {
+        try {
+            const response = await fetch('/api/averages');
+            if (response.ok) {
+                const data = await response.json();
+                this.data.dma_50 = data.fiftyDayAverage;
+                this.data.dma_200 = data.twoHundredDayAverage;
+            }
+        } catch (error) {
+            this.data.dma_50 = 24734.31;
+            this.data.dma_200 = 24788.64;
+        }
+    }
+
+    async loadEMAData() {
+        try {
+            const [ema20Response, ema50Response] = await Promise.all([
+                fetch('/api/ema?period=20'),
+                fetch('/api/ema?period=50')
+            ]);
+            if (ema20Response.ok) { this.data.ema_20 = (await ema20Response.json()).ema; }
+            if (ema50Response.ok) { this.data.ema_50 = (await ema50Response.json()).ema; }
+        } catch (error) {
+            this.data.ema_20 = 24724.75;
+            this.data.ema_50 = 24783.85;
+        }
+    }
+
+    async loadTechnicalData() {
+        try {
+            const response = await fetch('/api/technical');
+            if (response.ok) {
+                const data = await response.json();
+                this.data.pe_ratio = data.peRatio;
+                this.data.rsi = data.rsi;
+            }
+        } catch (error) {
+            this.data.pe_ratio = 21.73;
+            this.data.rsi = 53.21;
+        }
+    }
+
+    refreshData() {
+        if (this.isLoading) return;
+        this.loadAllData();
+    }
+    setLoadingState(isLoading) {
+        this.isLoading = isLoading;
+        const refreshBtn = document.getElementById('refresh-btn');
+        const refreshText = document.querySelector('.refresh-text');
+        if (refreshBtn && refreshText) {
+            refreshBtn.disabled = isLoading;
+            refreshText.textContent = isLoading ? 'Loading...' : 'Refresh';
+            refreshBtn.style.opacity = isLoading ? '0.6' : '1';
+        }
+    }
+    updateAllUI() {
+        this.updateMarketOverview();
+        this.updateTechnicalAnalysis();
+        this.updateInvestmentSignal();
+    }
+
+    /* ---------- MARKET CORRECTION/UPSIDE/STATUS CODE ---------- */
+    getMarketCondition(correctionPercent) {
+        if (correctionPercent >= -2) {
+            return { status: 'Near ATH', class: 'positive', desc: 'Market at or near all-time highs' };
+        } else if (correctionPercent >= -5) {
+            return { status: 'Minor Dip', class: 'neutral', desc: 'Small pullback from highs' };
+        } else if (correctionPercent >= -10) {
+            return { status: 'Correction', class: 'neutral', desc: 'Healthy market correction' };
+        } else if (correctionPercent >= -20) {
+            return { status: 'Bear Market', class: 'negative', desc: 'Significant market decline' };
+        } else {
+            return { status: 'Deep Bear', class: 'negative', desc: 'Major market correction' };
+        }
+    }
+    updateMarketOverview() {
+        this.updateElementText('current-price', this.data.current_price ? this.formatNumber(this.data.current_price) : 'N/A');
+        if (this.data.current_price && this.data.previous_close) {
+            const change = this.data.current_price - this.data.previous_close;
+            const changePercent = (change / this.data.previous_close) * 100;
+            this.updateElementText('price-change', (change >= 0 ? '+' : '') + change.toFixed(2));
+            this.updateElementText('price-change-percent', `(${change >= 0 ? '+' : ''}${changePercent.toFixed(3)}%)`);
+            // Color code
+            const priceChangeEl = document.getElementById('price-change');
+            const priceChangePercentEl = document.getElementById('price-change-percent');
+            if (priceChangeEl) priceChangeEl.className = `change-value ${change >= 0 ? 'positive' : 'negative'}`;
+            if (priceChangePercentEl) priceChangePercentEl.className = `change-percent ${change >= 0 ? 'positive' : 'negative'}`;
+        }
+        this.updateElementText('prev-close', this.data.previous_close ? this.formatCurrency(this.data.previous_close) : 'N/A');
+        this.updateElementText('open-price', this.data.open ? this.formatCurrency(this.data.open) : 'N/A');
+        this.updateElementText('high-52w', this.data.high_52w ? this.formatCurrency(this.data.high_52w) : 'N/A');
+        this.updateElementText('low-52w', this.data.low_52w ? this.formatCurrency(this.data.low_52w) : 'N/A');
+        this.updateElementText('all-time-high', this.data.all_time_high ? this.formatCurrency(this.data.all_time_high) : 'N/A');
+        
+        // Correction percentage and upside from ATH
+        if (this.data.current_price && this.data.all_time_high) {
+            const correctionPercent = ((this.data.current_price - this.data.all_time_high) / this.data.all_time_high) * 100;
+            this.updateElementText('ath-correction', correctionPercent.toFixed(2) + '%');
+            
+            // Upside potential
+            const upsidePercent = ((this.data.all_time_high - this.data.current_price) / this.data.current_price) * 100;
+            this.updateElementText('ath-upside', '+' + upsidePercent.toFixed(2) + '%');
+
+            // Market status
+            const condition = this.getMarketCondition(correctionPercent);
+            this.updateElementText('ath-status', condition.status);
+            const athCorrectionEl = document.getElementById('ath-correction');
+            const athStatusEl = document.getElementById('ath-status');
+            if (athCorrectionEl) athCorrectionEl.className = `data-value ${condition.class}`;
+            if (athStatusEl) athStatusEl.className = `data-value ${condition.class}`;
+        }
+    }
+    updateTechnicalAnalysis() {
+        this.updateElementText('dma-50', this.data.dma_50 ? this.formatCurrency(this.data.dma_50) : 'N/A');
+        this.updateElementText('dma-200', this.data.dma_200 ? this.formatCurrency(this.data.dma_200) : 'N/A');
+        this.updateElementText('ema-20', this.data.ema_20 ? this.formatCurrency(this.data.ema_20) : 'N/A');
+        this.updateElementText('ema-50', this.data.ema_50 ? this.formatCurrency(this.data.ema_50) : 'N/A');
+        // PE Ratio
+        const peElement = document.getElementById('pe-ratio');
+        if (peElement && this.data.pe_ratio) {
+            peElement.textContent = this.data.pe_ratio.toFixed(2);
+            if (this.data.pe_ratio < 21) peElement.className = 'data-value positive';
+            else if (this.data.pe_ratio > 25) peElement.className = 'data-value negative';
+            else peElement.className = 'data-value neutral';
+        }
+        // RSI
+        const rsiElement = document.getElementById('rsi-value');
+        if (rsiElement && this.data.rsi) {
+            rsiElement.textContent = this.data.rsi.toFixed(2);
+            if (this.data.rsi < 30) rsiElement.className = 'data-value positive';
+            else if (this.data.rsi > 70) rsiElement.className = 'data-value negative';
+            else rsiElement.className = 'data-value neutral';
+        }
+        // EMA crossover
+        if (this.data.ema_20 && this.data.ema_50) {
+            const isBullish = this.data.ema_20 > this.data.ema_50;
+            this.updateElementText('crossover-icon', isBullish ? '📈' : '📉');
+            this.updateElementText('crossover-status', isBullish ? 'BULLISH' : 'BEARISH');
+            const crossoverStatus = document.getElementById('crossover-status');
+            if (crossoverStatus) crossoverStatus.className = `crossover-label ${isBullish ? 'bullish' : 'bearish'}`;
+        }
+    }
+    updateInvestmentSignal() {
+        if (!this.data.ema_20 || !this.data.ema_50) return;
+        const isBullish = this.data.ema_20 > this.data.ema_50;
+        const peAttractive = this.data.pe_ratio && this.data.pe_ratio < 21;
+        const rsiOversold = this.data.rsi && this.data.rsi < 30;
+        const rsiOverbought = this.data.rsi && this.data.rsi > 70;
+        const peExpensive = this.data.pe_ratio && this.data.pe_ratio > 25;
+        const signalIcon = document.getElementById('signal-icon');
+        const signalText = document.getElementById('signal-text');
+        const signalDescription = document.getElementById('signal-description');
+        const trendStatus = document.getElementById('trend-status');
+        const momentumStatus = document.getElementById('momentum-status');
+
+        if (signalIcon && signalText && signalDescription) {
+            if (isBullish && (peAttractive || rsiOversold)) {
+                signalIcon.textContent = '🚀';
+                signalText.textContent = 'STRONG BUY';
+                signalDescription.textContent = `Excellent opportunity! EMA bullish, PE: ${this.data.pe_ratio?.toFixed(2) || 'N/A'}, RSI: ${this.data.rsi?.toFixed(2) || 'N/A'} (multiple indicators align).`;
+            } else if (isBullish && !peExpensive && !rsiOverbought) {
+                signalIcon.textContent = '📈';
+                signalText.textContent = 'BUY';
+                signalDescription.textContent = `Bullish momentum detected. EMA bullish, PE: ${this.data.pe_ratio?.toFixed(2)}, RSI: ${this.data.rsi?.toFixed(2)}.`;
+            } else if (!isBullish && (peExpensive || rsiOverbought)) {
+                signalIcon.textContent = '🔴';
+                signalText.textContent = 'STRONG AVOID';
+                signalDescription.textContent = `Multiple bearish signals. EMA bearish, PE: ${this.data.pe_ratio?.toFixed(2)}, RSI: ${this.data.rsi?.toFixed(2)}.`;
+            } else {
+                signalIcon.textContent = '⚠️';
+                signalText.textContent = 'WAIT';
+                signalDescription.textContent = `Mixed signals. EMA: ${isBullish ? 'Bullish' : 'Bearish'}, PE: ${this.data.pe_ratio?.toFixed(2)}, RSI: ${this.data.rsi?.toFixed(2)}. Wait for direction.`;
+            }
+        }
+        if (trendStatus && momentumStatus) {
+            trendStatus.textContent = isBullish ? 'BULLISH' : 'BEARISH';
+            trendStatus.className = `detail-value ${isBullish ? 'bullish' : 'bearish'}`;
+            let momentumText = 'NEUTRAL', momentumClass = 'neutral';
+            if (rsiOversold) { momentumText = 'OVERSOLD'; momentumClass = 'bullish'; }
+            else if (rsiOverbought) { momentumText = 'OVERBOUGHT'; momentumClass = 'bearish'; }
+            else if (isBullish) { momentumText = 'POSITIVE'; momentumClass = 'bullish'; }
+            else { momentumText = 'NEGATIVE'; momentumClass = 'bearish'; }
+            momentumStatus.textContent = momentumText;
+            momentumStatus.className = `detail-value ${momentumClass}`;
+        }
+    }
+
+    updateLastUpdated() {
+        const lastUpdatedEl = document.getElementById('lastUpdated');
+        if (lastUpdatedEl) {
+            const now = new Date();
+            const timeString = now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            lastUpdatedEl.textContent = `Last updated: ${timeString} IST`;
+        }
+    }
+    updateElementText(id, text) {
+        const element = document.getElementById(id);
+        if (element) element.textContent = text;
+    }
+    formatNumber(num) {
+        if (num == null || isNaN(num)) return 'N/A';
+        return num.toLocaleString('en-IN', { maximumFractionDigits: 2 });
+    }
+    formatCurrency(num) {
+        if (num == null || isNaN(num)) return 'N/A';
+        return '₹' + this.formatNumber(num);
+    }
+}
+// Initialize the app when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => { new NiftyTracker(); });
+// Service Worker registration
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+        .then(registration => console.log('SW registered'))
+        .catch(error => console.log('SW registration failed'));
+}
+</script>
 </body>
 </html>
